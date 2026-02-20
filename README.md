@@ -16,7 +16,7 @@ Create an `.env` file with the following content:
 SESSION_SECRET="unsecured-session-secret"
 GLOBUS_CLIENT_ID="<your-client-id>"
 GLOBUS_CLIENT_SECRET="<your-client-secret>"
-GLOBUS_REDIRECT_URI=http://localhost:8000/auth/callback
+GLOBUS_REDIRECT_URI="http://localhost:8000/auth/callback"
 REQUESTED_SCOPES="<your-globus-scopes-(separated by a space)>"
 ```
 
