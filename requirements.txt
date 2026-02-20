@@ -1,7 +1,6 @@
 fastapi
 fastapi-cli
 httpx
-itsdangerous
 uvicorn[standard]
 python-dotenv
 jinja2
