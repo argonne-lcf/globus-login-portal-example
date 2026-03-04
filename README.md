@@ -56,6 +56,21 @@ Visit [https://app.globus.org/settings/developers](https://app.globus.org/settin
 
 Copy-paste the Client UUID and the secret into your `GLOBUS_CLIENT_ID` and `GLOBUS_CLIENT_SECRET` variables in your `.env` file.
 
+## Create Globus High Assurance Policy
+
+In the same Project space you created your Portal Client (see step above):
+* Click on the "Policies" tab
+* Click on "Add a Policy"
+* Fill the App Registration form
+    * Display Name: My High Assurance Policy
+    * Description: Policy for the globus-login-portal-example project
+    * **Important**: Check the box for "High Assurance"
+    * Included Domains: list your allowed domains (e.g., alcf.anl.gov my-institution.gov etc ...)
+        * One domain per line
+    * Click on "Create Policy"
+
+Copy-paste the Policy UUID into your `GLOBUS_HIGH_ASSURANCE_POLICY` variable in your `.env` file.
+
 ## Run Application
 
 Run fastapi in development mode
