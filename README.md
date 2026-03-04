@@ -1,6 +1,6 @@
 # FastAPI + Globus Login
 
-This repo includes a dev-only FastAPI application to demonstrate how Globus access tokens for specific scopes can be generated and retrieved from a Globus login button. It is not intended to be used in production.
+This repo includes a dev-only FastAPI application to demonstrate how Globus access tokens for specific scopes can be generated and retrieved from a Globus login button. It is not intended to be used in production. It also shows how to enforce a Globus policy within the login flow.
 
 ## Prepare Environment and Define Globus Scopes
 
@@ -33,6 +33,13 @@ REQUESTED_SCOPES="https://auth.globus.org/scopes/facd7ccc-c5f4-42aa-916b-a0e270e
 If you want to request both scopes:
 ```bash
 REQUESTED_SCOPES="https://auth.globus.org/scopes/681c10cc-f684-4540-bcd7-0b4df3bc26ef/action_all https://auth.globus.org/scopes/facd7ccc-c5f4-42aa-916b-a0e270e2c2a9/all"
+```
+
+## Add Globus Policy in the Auth Flow
+
+Once you have your Globus policy (ideally a high-assurance policy), simply add it to your `.env` file:
+```bash
+GLOBUS_POLICY="<your-globus-policy>"
 ```
 
 ## Create Globus Portal Client
