@@ -22,7 +22,7 @@ GLOBUS_CONFIG = {
     "client_secret": (os.getenv("GLOBUS_CLIENT_SECRET") or "").strip() or None,
     "redirect_uri": (os.getenv("GLOBUS_REDIRECT_URI") or "").strip() or None,
     "scopes": _scopes_to_request(),
-    "policy": (os.getenv("GLOBUS_POLICY") or "").strip() or None,
+    "high_assurance_policy": (os.getenv("GLOBUS_HIGH_ASSURANCE_POLICY") or "").strip() or None,
 }
 
 # Define Globus Auth URLs
@@ -92,8 +92,8 @@ async def login(request: Request):
     }
 
     # Add Globus policy in the auth flow
-    if GLOBUS_CONFIG["policy"]:
-        params["session_required_policies"] = GLOBUS_CONFIG["policy"]
+    if GLOBUS_CONFIG["high_assurance_policy"]:
+        params["session_required_policies"] = GLOBUS_CONFIG["high_assurance_policy"]
 
     # Redirect to Globus Auth authorize endpoint
     return RedirectResponse(f"{AUTHORIZE_URL}?{urlencode(params)}", status_code=302)
