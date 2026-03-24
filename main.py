@@ -2,6 +2,7 @@ import os
 import secrets
 from urllib.parse import urlencode
 import httpx
+import copy
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -156,10 +157,19 @@ async def logout(request: Request):
 @app.get("/token")
 async def token(request: Request):
 
+    # Retrieve token from session
     token_id = request.session.get("token_id")
-    token_data = TOKEN_STORE.get(token_id) if token_id else None
+    token_data = copy.deepcopy(TOKEN_STORE.get(token_id) if token_id else None)
     if not token_data or not token_data.get("access_token"):
         return JSONResponse({"error": "not_logged_in"}, status_code=401)
+    
+    # Redact access tokens
+    token_data["access_token"] = f"{token_data['access_token'][:5]}-REDACTED"
+    token_data["state"] = f"{token_data['state'][:5]}-REDACTED"
+    if "other_tokens" in token_data:
+        for other_token in token_data["other_tokens"]:
+            other_token["access_token"] = f"{other_token['access_token'][:5]}-REDACTED"
+            other_token["state"] = f"{other_token['state'][:5]}-REDACTED"
     
     # Return the main token JSON data
     return JSONResponse(token_data, status_code=200)
